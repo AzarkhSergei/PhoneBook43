@@ -1,6 +1,6 @@
 package experiments;
 
-public enum TringleType {
+public enum TriangleType {
 
   EQUILATERAL("EQUILATERAL"),
   ISOSCELES("ISOSCELES"),
@@ -9,7 +9,7 @@ public enum TringleType {
 
   private final String type;
 
-  TringleType(String type){
+  TriangleType(String type){
     this.type = type;
   }
 
