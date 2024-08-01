@@ -15,6 +15,19 @@ public class Test29072024 {
 
   public static void main(String[] args) {
 
+    DayOfWeek today = DayOfWeek.FRIDAY;
+    //System.out.println("Today is " + today);
+    switch (today){
+      case MONDAY:
+        System.out.println("Today is monday");
+        break;
+      case FRIDAY:
+        System.out.println("Today is friday");
+        break;
+      default:
+        System.out.println("Somthing is wrong...");
+    }
+
     //byte -128 до 127
     //short -32768 до 32767
     //int -2147483648 до 2147483647
@@ -37,7 +50,7 @@ public class Test29072024 {
     //System.out.println("INTEGER "+add(12, 12));
     //System.out.println("DOUBLE "+add(12.5, 12.2));
 
-    System.out.println(generateRandomString(33));
+    //System.out.println(generateRandomString(33));
 
   }
 
