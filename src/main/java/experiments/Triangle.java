@@ -5,10 +5,13 @@ public class Triangle {
     if (a <= 0 || b <= 0 || c <= 0) {
       return TriangleType.INVALID;
     }
+    if (a + b <= c || b + c <= a || c + a <= b) {
+      return TriangleType.INVALID;
+    }
     if (a == b && b == c) {
       return TriangleType.EQUILATERAL;
     }
-    if (a == b && c < a || b == c && a < b) {
+    if (a == b || b == c || a == c) {
       return TriangleType.ISOSCELES;
     }
     if (a + b > c && b + c > a && c + a > b) {
