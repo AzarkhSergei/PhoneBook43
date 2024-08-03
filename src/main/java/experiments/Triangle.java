@@ -8,7 +8,7 @@ public class Triangle {
     if (a == b && b == c) {
       return TriangleType.EQUILATERAL;
     }
-    if (a == b || b == c) {
+    if (a == b && c < a || b == c && a < b) {
       return TriangleType.ISOSCELES;
     }
     if (a + b > c && b + c > a && c + a > b) {
