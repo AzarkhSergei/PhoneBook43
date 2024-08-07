@@ -1,7 +1,10 @@
 package experiments;
 
+import io.qameta.allure.Allure;
+
 public class Triangle {
   public static TriangleType getTriangleType(int a, int b, int c){
+    Allure.step("STEP 1");
     if (a <= 0 || b <= 0 || c <= 0) {
       return TriangleType.INVALID;
     }
