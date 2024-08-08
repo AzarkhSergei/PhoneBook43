@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.safari.SafariDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -35,6 +37,9 @@ public class BaseTest {
       option.addPreference("intl.accept_languages","en");
       driver = new FirefoxDriver(option);
     }
+    else if(browser.equalsIgnoreCase("safari")){
+      driver = new SafariDriver();
+    }
     else {
       throw new IllegalArgumentException("Invalid Browser value" + browser);
     }
@@ -45,7 +50,10 @@ public class BaseTest {
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
   }
 
-
+  @AfterMethod
+  public void tearDown(){
+    driver.quit();
+  }
 
 
 
