@@ -1,16 +1,12 @@
 package pages;
 
+import helpers.AlertHandler;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class LoginPage extends BasePage{
 
@@ -39,25 +35,20 @@ public class LoginPage extends BasePage{
     return this;
   }
 
-  private Alert getAlertIfPresent(){
-    try{
-      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-      return wait.until(ExpectedConditions.alertIsPresent());
-    }catch (TimeoutException exception){
-      System.out.println("There is no alert...");
-      return null;
-    }
-  }
-
   public BasePage clickByLoginButton(){
     loginButton.click();
-    Alert alert = getAlertIfPresent();
+    Alert alert = AlertHandler.getAlertIfPresent();
     if(alert != null){
       alert.accept();
       return this;
     }else{
       return new ContactsPage(driver);
     }
+  }
+
+  public Alert clickByRegistrationButton(){
+    registrationButton.click();
+    return AlertHandler.getAlertIfPresent();
   }
 
 }
