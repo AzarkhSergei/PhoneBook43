@@ -36,8 +36,79 @@ public class PhoneBookTests extends BaseTest {
     Alert alert = loginPage
         .fieldEmailField(TestData.randomEmail)
         .clickByRegistrationButton();
-    String expectedAlert = "Wrong ";
-    boolean isAlertHandled = AlertHandler.handleAlert(alert, expectedAlert);
+    boolean isAlertHandled = AlertHandler.handleAlert(alert, TestData.expectedAlert);
+    Assert.assertTrue(isAlertHandled);
+  }
+
+  @Test
+  public void registrationWithPasswordWithoutSpecialSymbol(){
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    Alert alert = loginPage
+        .fieldEmailField(TestData.randomEmail)
+        .fieldPasswordField(TestData.passwordWithoutSpecialSymbol)
+        .clickByRegistrationButton();
+    boolean isAlertHandled = AlertHandler.handleAlert(alert, TestData.expectedAlert);
+    Assert.assertTrue(isAlertHandled);
+  }
+
+  @Test
+  public void registrationWithPasswordWithoutUppercaseLetter(){
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    Alert alert = loginPage
+        .fieldEmailField(TestData.randomEmail)
+        .fieldPasswordField(TestData.passwordWithoutUppercaseLetter)
+        .clickByRegistrationButton();
+    boolean isAlertHandled = AlertHandler.handleAlert(alert, TestData.expectedAlert);
+    Assert.assertTrue(isAlertHandled);
+  }
+
+  @Test
+  public void registrationWithPasswordWithoutLowercaseLetter(){
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    Alert alert = loginPage
+        .fieldEmailField(TestData.randomEmail)
+        .fieldPasswordField(TestData.passwordWithoutLowercaseLetter)
+        .clickByRegistrationButton();
+    boolean isAlertHandled = AlertHandler.handleAlert(alert, TestData.expectedAlert);
+    Assert.assertTrue(isAlertHandled);
+  }
+
+  @Test
+  public void registrationWithPasswordWithoutDigit(){
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    Alert alert = loginPage
+        .fieldEmailField(TestData.randomEmail)
+        .fieldPasswordField(TestData.passwordWithoutDigit)
+        .clickByRegistrationButton();
+    boolean isAlertHandled = AlertHandler.handleAlert(alert, TestData.expectedAlert);
+    Assert.assertTrue(isAlertHandled);
+  }
+
+  @Test
+  public void registrationWithPasswordWithLengthLess8Symbols(){
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    Alert alert = loginPage
+        .fieldEmailField(TestData.randomEmail)
+        .fieldPasswordField(TestData.passwordWithLengthLess8Symbols)
+        .clickByRegistrationButton();
+    boolean isAlertHandled = AlertHandler.handleAlert(alert, TestData.expectedAlert);
+    Assert.assertTrue(isAlertHandled);
+  }
+
+  @Test
+  public void registrationWithPasswordWithLengthMore15Symbols(){
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    Alert alert = loginPage
+        .fieldEmailField(TestData.randomEmail)
+        .fieldPasswordField(TestData.passwordWithLengthMore15Symbols)
+        .clickByRegistrationButton();
+    boolean isAlertHandled = AlertHandler.handleAlert(alert, TestData.expectedAlert);
     Assert.assertTrue(isAlertHandled);
   }
 
