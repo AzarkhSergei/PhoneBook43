@@ -5,12 +5,13 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.BasePage;
 import java.time.Duration;
 
-public class AlertHandler extends BasePage {
+public class AlertHandler {
+  private WebDriver driver;
+
   public AlertHandler(WebDriver driver) {
-    setDriver(driver);
+    this.driver = driver;
   }
 
   public static boolean handleAlert(Alert alert, String expectedText){
@@ -18,12 +19,12 @@ public class AlertHandler extends BasePage {
       String alertText = alert.getText();
       alert.accept();
       return alertText.contains(expectedText);
-    }
-    System.out.println(" ... !!!");
-    return false;
+    }else {
+      System.out.println("There is no alert...");
+      return false;}
   }
 
-  public static Alert getAlertIfPresent(){
+  public Alert getAlertIfPresent(){
     try{
       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
       return wait.until(ExpectedConditions.alertIsPresent());

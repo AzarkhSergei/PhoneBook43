@@ -4,6 +4,8 @@ import config.BaseTest;
 import config.TestData;
 import enums.TopMenuItem;
 import helpers.AlertHandler;
+import helpers.PropertiesReaderXML;
+import interfaces.TestHelper;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -13,19 +15,19 @@ import pages.ContactsPage;
 import pages.LoginPage;
 import pages.MainPage;
 
-public class PhoneBookTests extends BaseTest {
+
+public class PhoneBookTests extends BaseTest implements TestHelper {
 
   @Test
   public void successfulLogin(){
     MainPage mainPage = new MainPage(getDriver());
     LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
     loginPage
-        .fieldEmailField(TestData.correctEmail)
-        .fieldPasswordField(TestData.correctPassword)
+        .fieldEmailField(PropertiesReaderXML.getProperties(CORRECT_EMAIL, XML_DATA_FILE))
+        .fieldPasswordField(PropertiesReaderXML.getProperties(CORRECT_PASSWORD, XML_DATA_FILE))
         .clickByLoginButton();
-    //TASK
-    boolean result = ContactsPage.isElementPersist(getDriver().
-        findElement(By.xpath(TestData.buttonSingOut)));
+    ContactsPage contactsPage = new ContactsPage(getDriver());
+    boolean result = contactsPage.isSignButtonPersist();
     Assert.assertTrue(result);
   }
 

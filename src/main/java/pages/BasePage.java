@@ -1,11 +1,7 @@
 package pages;
 
 import enums.TopMenuItem;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.html5.WebStorage;
+import org.openqa.selenium.*;
 
 public class BasePage {
 
