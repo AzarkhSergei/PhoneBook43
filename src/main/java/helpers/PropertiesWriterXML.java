@@ -11,6 +11,13 @@ public class PropertiesWriterXML {
     PropertiesWriterXML pp = new PropertiesWriterXML();
     pp.setProperty("correctEmail", "tester19871987@gmail.com", false, "src/main/resources/data.xml");
     pp.setProperty("correctPassword", "Tester19871987!", false, "src/main/resources/data.xml");
+    pp.setProperty("passwordWithoutSpecialSymbol", "Tester19871987", false, "src/main/resources/data.xml");
+    pp.setProperty("passwordWithoutUppercaseLetter", "tester19871987!", false, "src/main/resources/data.xml");
+    pp.setProperty("passwordWithoutLowercaseLetter", "TESTER19871987!", false, "src/main/resources/data.xml");
+    pp.setProperty("passwordWithoutDigit", "TesterTesterrr!", false, "src/main/resources/data.xml");
+    pp.setProperty("passwordWithLengthLess8Symbols", "Testr8!", false, "src/main/resources/data.xml");
+    pp.setProperty("passwordWithLengthMore15Symbols", "Testerr19871987!", false, "src/main/resources/data.xml");
+
   }
 
   Properties properties = new Properties();
