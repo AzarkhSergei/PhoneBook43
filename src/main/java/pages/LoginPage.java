@@ -28,12 +28,12 @@ public class LoginPage extends BasePage{
     this.alertHandler = new AlertHandler(driver);
   }
 
-  public LoginPage fieldEmailField(String email){
+  public LoginPage fillEmailField(String email){
     emailField.sendKeys(email);
     return this;
   }
 
-  public LoginPage fieldPasswordField(String password){
+  public LoginPage fillPasswordField(String password){
     passwordField.sendKeys(password);
     return this;
   }

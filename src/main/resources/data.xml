@@ -2,11 +2,5 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <entry key="correctPassword">Tester19871987!</entry>
-<entry key="passwordWithoutSpecialSymbol">Tester19871987</entry>
-<entry key="passwordWithoutDigit">TesterTesterrr!</entry>
-<entry key="passwordWithoutUppercaseLetter">tester19871987!</entry>
-<entry key="passwordWithoutLowercaseLetter">TESTER19871987!</entry>
-<entry key="passwordWithLengthLess8Symbols">Testr8!</entry>
 <entry key="correctEmail">tester19871987@gmail.com</entry>
-<entry key="passwordWithLengthMore15Symbols">Testerr19871987!</entry>
 </properties>
