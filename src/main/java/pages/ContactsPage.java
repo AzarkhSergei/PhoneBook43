@@ -1,5 +1,6 @@
 package pages;
 
+import helpers.NameAndLastNameGenerator;
 import models.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,15 @@ import java.time.Duration;
 import java.util.List;
 
 public class ContactsPage extends BasePage{
+
+  public enum FieldType{
+    NAME,
+    LASTNAME,
+    PHONE,
+    EMAIL,
+    ADDRESS,
+    DESCRIPTION
+  }
 
   @FindBy(xpath = "//button[contains(text(),'Sign')]")
   private WebElement signButton;
@@ -64,5 +74,53 @@ public class ContactsPage extends BasePage{
     testContact.setDescription(elementDescValue);
 
     return testContact.equals(contact);
+  }
+
+  public boolean editContactField(Contact contact, FieldType fieldType){
+    if(getDataFromContactList(contact)){
+      switch (fieldType){
+        case NAME:
+          WebElement elementName = driver.findElement(By.xpath("//input[@placeholder='Name']"));
+          String elementNameValue = elementName.getAttribute("value");
+          String newNameValue;
+          do {
+            newNameValue = NameAndLastNameGenerator.generateName();
+          } while (newNameValue.equals(elementNameValue));
+          elementName.clear();
+          elementName.sendKeys(newNameValue);
+          WebElement saveButton = driver.findElement(By.xpath("//button[contains(text(),'Save')]"));
+          saveButton.click();
+          WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+          WebElement nameContact = wait.until(ExpectedConditions.visibilityOfElementLocated(
+              By.xpath("//h2[contains(text(),'"+ newNameValue +"')]")));
+          nameContact.click();
+          WebElement editButton = driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
+          editButton.click();
+          elementName = driver.findElement(By.xpath("//input[@placeholder='Name']"));
+          String updatedNameValue = elementName.getAttribute("value");
+          return newNameValue.equals(updatedNameValue);
+        case LASTNAME:
+          WebElement elementLastName = driver.findElement(By.xpath("//input[@placeholder='Last Name']"));
+          String elementLastNameValue = elementLastName.getAttribute("value");
+          String newLastNameValue;
+          do {
+            newLastNameValue = NameAndLastNameGenerator.generateLastName();
+          } while (newLastNameValue.equals(elementLastNameValue));
+          elementLastName.clear();
+          //elementLastName.sendKeys(newLastNameValue);
+          saveButton = driver.findElement(By.xpath("//button[contains(text(),'Save')]"));
+          saveButton.click();
+          wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+          nameContact = wait.until(ExpectedConditions.visibilityOfElementLocated(
+              By.xpath("//h2[contains(text(),'"+ contact.getName().toString() +"')]")));
+          nameContact.click();
+          editButton = driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
+          editButton.click();
+          elementLastName = driver.findElement(By.xpath("//input[@placeholder='Last Name']"));
+          String updatedLastNameValue = elementLastName.getAttribute("value");
+          return newLastNameValue.equals(updatedLastNameValue);
+      }
+    }
+    return false;
   }
 }
