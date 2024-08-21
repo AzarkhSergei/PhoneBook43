@@ -263,6 +263,84 @@ public class PhoneBookTests extends BaseTest implements TestHelper {
     Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.LASTNAME));
   }
 
+  @Test
+  public void loginOfAnExistingUserAddContactAndEditPhone(){
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    loginPage.fillEmailField(PropertiesReaderXML.getProperties(CORRECT_EMAIL, XML_DATA_FILE))
+        .fillPasswordField(PropertiesReaderXML.getProperties(CORRECT_PASSWORD,XML_DATA_FILE))
+        .clickByLoginButton();
+    AddPage addPage = BasePage.openTopMenuItem(TopMenuItem.ADD);
+    Contact contact = new Contact(NameAndLastNameGenerator.generateName(),
+        NameAndLastNameGenerator.generateLastName(),
+        PhoneNumberGenerator.generatePhoneNumber(),
+        RANDOM_EMAIL,
+        AddressGenerator.generateAddress(),
+        "Test description");
+    System.out.println(contact.toString());
+    addPage.fieldContactFormAndSave(contact);
+    ContactsPage contactsPage = new ContactsPage(getDriver());
+    Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.PHONE));
+  }
 
+  @Test
+  public void loginOfAnExistingUserAddContactAndEditEmail(){
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    loginPage.fillEmailField(PropertiesReaderXML.getProperties(CORRECT_EMAIL, XML_DATA_FILE))
+        .fillPasswordField(PropertiesReaderXML.getProperties(CORRECT_PASSWORD,XML_DATA_FILE))
+        .clickByLoginButton();
+    AddPage addPage = BasePage.openTopMenuItem(TopMenuItem.ADD);
+    Contact contact = new Contact(NameAndLastNameGenerator.generateName(),
+        NameAndLastNameGenerator.generateLastName(),
+        PhoneNumberGenerator.generatePhoneNumber(),
+        RANDOM_EMAIL,
+        AddressGenerator.generateAddress(),
+        "Test description");
+    System.out.println(contact.toString());
+    addPage.fieldContactFormAndSave(contact);
+    ContactsPage contactsPage = new ContactsPage(getDriver());
+    Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.EMAIL));
+  }
+
+  @Test
+  public void loginOfAnExistingUserAddContactAndEditAddress(){
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    loginPage.fillEmailField(PropertiesReaderXML.getProperties(CORRECT_EMAIL, XML_DATA_FILE))
+        .fillPasswordField(PropertiesReaderXML.getProperties(CORRECT_PASSWORD,XML_DATA_FILE))
+        .clickByLoginButton();
+    AddPage addPage = BasePage.openTopMenuItem(TopMenuItem.ADD);
+    Contact contact = new Contact(NameAndLastNameGenerator.generateName(),
+        NameAndLastNameGenerator.generateLastName(),
+        PhoneNumberGenerator.generatePhoneNumber(),
+        RANDOM_EMAIL,
+        AddressGenerator.generateAddress(),
+        "Test description");
+    System.out.println(contact.toString());
+    addPage.fieldContactFormAndSave(contact);
+    ContactsPage contactsPage = new ContactsPage(getDriver());
+    Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.ADDRESS));
+  }
+
+  /*@Test
+  public void loginOfAnExistingUserAddContactAndEditDescription(){
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    loginPage.fillEmailField(PropertiesReaderXML.getProperties(CORRECT_EMAIL, XML_DATA_FILE))
+        .fillPasswordField(PropertiesReaderXML.getProperties(CORRECT_PASSWORD,XML_DATA_FILE))
+        .clickByLoginButton();
+    AddPage addPage = BasePage.openTopMenuItem(TopMenuItem.ADD);
+    Contact contact = new Contact(NameAndLastNameGenerator.generateName(),
+        NameAndLastNameGenerator.generateLastName(),
+        PhoneNumberGenerator.generatePhoneNumber(),
+        RANDOM_EMAIL,
+        AddressGenerator.generateAddress(),
+        "Test description");
+    System.out.println(contact.toString());
+    addPage.fieldContactFormAndSave(contact);
+    ContactsPage contactsPage = new ContactsPage(getDriver());
+    Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.DESCRIPTION));
+  }*/
 
 }
