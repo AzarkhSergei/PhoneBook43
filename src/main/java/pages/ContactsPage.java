@@ -31,6 +31,30 @@ public class ContactsPage extends BasePage{
   @FindBy(xpath = "//button[contains(text(),'Sign')]")
   private WebElement signButton;
 
+  @FindBy(xpath = "//button[contains(text(),'Save')]")
+  private WebElement saveButton;
+
+  @FindBy(xpath = "//button[contains(text(),'Edit')]")
+  private WebElement editButton;
+
+  @FindBy(xpath = "//input[@placeholder='Name']")
+  private WebElement nameField;
+
+  @FindBy(xpath = "//input[@placeholder='Last Name']")
+  private WebElement lastNameField;
+
+  @FindBy(xpath = "//input[@placeholder='Phone']")
+  private WebElement phoneField;
+
+  @FindBy(xpath = "//input[@placeholder='email']")
+  private WebElement emailField;
+
+  @FindBy(xpath = "//input[@placeholder='Address']")
+  private WebElement addressField;
+
+  @FindBy(xpath = "//input[@placeholder='desc']")
+  private WebElement descriptionField;
+
   public ContactsPage(WebDriver driver){
     setDriver(driver);
     PageFactory.initElements(new AjaxElementLocatorFactory(driver, 15), this);
@@ -53,137 +77,50 @@ public class ContactsPage extends BasePage{
     WebElement nameContact = wait.until(ExpectedConditions.visibilityOfElementLocated(
         By.xpath("//h2[contains(text(),'"+ contact.getName().toString() +"')]")));
     nameContact.click();
-    WebElement editButton = driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
     editButton.click();
-    WebElement elementName = driver.findElement(By.xpath("//input[@placeholder='Name']"));
-    String elementNameValue = elementName.getAttribute("value");
-    WebElement elementLastName = driver.findElement(By.xpath("//input[@placeholder='Last Name']"));
-    String elementLastNameValue = elementLastName.getAttribute("value");
-    WebElement elementPhone = driver.findElement(By.xpath("//input[@placeholder='Phone']"));
-    String elementPhoneValue = elementPhone.getAttribute("value");
-    WebElement elementEmail = driver.findElement(By.xpath("//input[@placeholder='email']"));
-    String elementEmailValue = elementEmail.getAttribute("value");
-    WebElement elementAddress = driver.findElement(By.xpath("//input[@placeholder='Address']"));
-    String elementAddressValue = elementAddress.getAttribute("value");
-    WebElement elementDesc = driver.findElement(By.xpath("//input[@placeholder='desc']"));
-    String elementDescValue = elementDesc.getAttribute("value");
-
-    Contact testContact = new Contact();
-    testContact.setName(elementNameValue);
-    testContact.setLastName(elementLastNameValue);
-    testContact.setPhone(elementPhoneValue);
-    testContact.setEmail(elementEmailValue);
-    testContact.setAddress(elementAddressValue);
-    testContact.setDescription(elementDescValue);
-
+    Contact testContact = new Contact(
+        nameField.getAttribute("value"),
+        lastNameField.getAttribute("value"),
+        phoneField.getAttribute("value"),
+        emailField.getAttribute("value"),
+        addressField.getAttribute("value"),
+        descriptionField.getAttribute("value")
+    );
     return testContact.equals(contact);
   }
 
   public boolean editContactField(Contact contact, FieldType fieldType){
     if(getDataFromContactList(contact)){
-      switch (fieldType){
+      switch (fieldType) {
         case NAME:
-          WebElement elementName = driver.findElement(By.xpath("//input[@placeholder='Name']"));
-          String elementNameValue = elementName.getAttribute("value");
-          String newNameValue;
-          do {
-            newNameValue = NameAndLastNameGenerator.generateName();
-          } while (newNameValue.equals(elementNameValue));
-          elementName.clear();
-          elementName.sendKeys(newNameValue);
-          clickBySaveButton();
-          WebElement editButton = driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
-          editButton.click();
-          elementName = driver.findElement(By.xpath("//input[@placeholder='Name']"));
-          String updatedNameValue = elementName.getAttribute("value");
-          return newNameValue.equals(updatedNameValue);
+          return updateField(nameField, NameAndLastNameGenerator.generateName());
         case LASTNAME:
-          WebElement elementLastName = driver.findElement(By.xpath("//input[@placeholder='Last Name']"));
-          String elementLastNameValue = elementLastName.getAttribute("value");
-          String newLastNameValue;
-          do {
-            newLastNameValue = NameAndLastNameGenerator.generateLastName();
-          } while (newLastNameValue.equals(elementLastNameValue));
-          elementLastName.clear();
-          elementLastName.sendKeys(newLastNameValue);
-          clickBySaveButton();
-          editButton = driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
-          editButton.click();
-          elementLastName = driver.findElement(By.xpath("//input[@placeholder='Last Name']"));
-          String updatedLastNameValue = elementLastName.getAttribute("value");
-          return newLastNameValue.equals(updatedLastNameValue);
+          return updateField(lastNameField, NameAndLastNameGenerator.generateLastName());
         case PHONE:
-          WebElement elementPhone = driver.findElement(By.xpath("//input[@placeholder='Phone']"));
-          String elementPhoneValue = elementPhone.getAttribute("value");
-          String newPhoneValue;
-          do {
-            newPhoneValue = PhoneNumberGenerator.generatePhoneNumber();
-          } while (newPhoneValue.equals(elementPhoneValue));
-          elementPhone.clear();
-          elementPhone.sendKeys(newPhoneValue);
-          clickBySaveButton();
-          editButton = driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
-          editButton.click();
-          elementPhone = driver.findElement(By.xpath("//input[@placeholder='Phone']"));
-          String updatedPhoneValue = elementPhone.getAttribute("value");
-          return newPhoneValue.equals(updatedPhoneValue);
+          return updateField(phoneField, PhoneNumberGenerator.generatePhoneNumber());
         case EMAIL:
-          WebElement elementEmail = driver.findElement(By.xpath("//input[@placeholder='email']"));
-          String elementEmailValue = elementEmail.getAttribute("value");
-          String newEmailValue;
-          do {
-            newEmailValue = EmailGenerator.generateEmail(10,5,3, EmailGenerator.EmailType.VALID);
-          } while (newEmailValue.equals(elementEmailValue));
-          elementEmail.clear();
-          elementEmail.sendKeys(newEmailValue);
-          clickBySaveButton();
-          editButton = driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
-          editButton.click();
-          elementEmail = driver.findElement(By.xpath("//input[@placeholder='email']"));
-          String updatedEmailValue = elementEmail.getAttribute("value");
-          return newEmailValue.equals(updatedEmailValue);
+          return updateField(emailField, EmailGenerator.generateEmail(10, 5, 3, EmailGenerator.EmailType.VALID));
         case ADDRESS:
-          WebElement elementAddress = driver.findElement(By.xpath("//input[@placeholder='Address']"));
-          String elementAddressValue = elementAddress.getAttribute("value");
-          String newAddressValue;
-          do {
-            newAddressValue = AddressGenerator.generateAddress();
-          } while (newAddressValue.equals(elementAddressValue));
-          elementAddress.clear();
-          elementAddress.sendKeys(newAddressValue);
-          clickBySaveButton();
-          editButton = driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
-          editButton.click();
-          elementAddress = driver.findElement(By.xpath("//input[@placeholder='Address']"));
-          String updatedAddressValue = elementAddress.getAttribute("value");
-          return newAddressValue.equals(updatedAddressValue);
+          return updateField(addressField, AddressGenerator.generateAddress());
         case DESCRIPTION:
-          WebElement elementDescription = driver.findElement(By.xpath("//input[@placeholder='desc']"));
-          String elementDescriptionValue = elementDescription.getAttribute("value");
-          String newDescriptionValue;
-          do {
-            newDescriptionValue = "New test description...";
-          } while (newDescriptionValue.equals(elementDescriptionValue));
-          elementDescription.clear();
-          elementDescription.sendKeys(newDescriptionValue);
-          clickBySaveButton();
-          editButton = driver.findElement(By.xpath("//button[contains(text(),'Edit')]"));
-          editButton.click();
-          elementDescription = driver.findElement(By.xpath("//input[@placeholder='desc']"));
-          String updatedDescriptionValue = elementDescription.getAttribute("value");
-          return newDescriptionValue.equals(updatedDescriptionValue);
+          return updateField(descriptionField, "New test description...");
       }
     }
     return false;
   }
 
-  private static void clickBySaveButton(){
-    WebElement saveButton = driver.findElement(By.xpath("//button[contains(text(),'Save')]"));
+  private boolean updateField(WebElement fieldElement, String newValue) {
+    String oldValue = fieldElement.getAttribute("value");
+    fieldElement.clear();
+    fieldElement.sendKeys(newValue);
     saveButton.click();
     try {
-      Thread.sleep(5000);
+      Thread.sleep(2000);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
+    editButton.click();
+    return fieldElement.getAttribute("value").equals(newValue);
   }
+
 }

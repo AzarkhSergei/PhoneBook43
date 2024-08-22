@@ -50,10 +50,10 @@ public class BaseTest {
     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
   }
 
-/*  @AfterMethod
+  @AfterMethod
   public void tearDown(){
     driver.quit();
-  }*/
+  }
 
 
 
