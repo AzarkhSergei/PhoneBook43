@@ -1,5 +1,6 @@
 package pages;
 
+import enums.ContactFieldsType;
 import helpers.AddressGenerator;
 import helpers.EmailGenerator;
 import helpers.NameAndLastNameGenerator;
@@ -30,28 +31,20 @@ public class ContactsPage extends BasePage{
 
   @FindBy(xpath = "//button[contains(text(),'Sign')]")
   private WebElement signButton;
-
   @FindBy(xpath = "//button[contains(text(),'Save')]")
   private WebElement saveButton;
-
   @FindBy(xpath = "//button[contains(text(),'Edit')]")
   private WebElement editButton;
-
   @FindBy(xpath = "//input[@placeholder='Name']")
   private WebElement nameField;
-
   @FindBy(xpath = "//input[@placeholder='Last Name']")
   private WebElement lastNameField;
-
   @FindBy(xpath = "//input[@placeholder='Phone']")
   private WebElement phoneField;
-
   @FindBy(xpath = "//input[@placeholder='email']")
   private WebElement emailField;
-
   @FindBy(xpath = "//input[@placeholder='Address']")
   private WebElement addressField;
-
   @FindBy(xpath = "//input[@placeholder='desc']")
   private WebElement descriptionField;
 
@@ -89,9 +82,9 @@ public class ContactsPage extends BasePage{
     return testContact.equals(contact);
   }
 
-  public boolean editContactField(Contact contact, FieldType fieldType){
+  public boolean editContactField(Contact contact, ContactFieldsType contactFieldsType){
     if(getDataFromContactList(contact)){
-      switch (fieldType) {
+      switch (contactFieldsType) {
         case NAME:
           return updateField(nameField, NameAndLastNameGenerator.generateName());
         case LASTNAME:

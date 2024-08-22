@@ -1,6 +1,7 @@
 package web;
 
 import config.BaseTest;
+import enums.ContactFieldsType;
 import enums.TopMenuItem;
 import helpers.*;
 import interfaces.TestHelper;
@@ -240,7 +241,7 @@ public class PhoneBookTests extends BaseTest implements TestHelper {
     System.out.println(contact.toString());
     addPage.fieldContactFormAndSave(contact);
     ContactsPage contactsPage = new ContactsPage(getDriver());
-    Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.NAME));
+    Assert.assertTrue(contactsPage.editContactField(contact, ContactFieldsType.NAME));
   }
 
   @Test
@@ -260,7 +261,7 @@ public class PhoneBookTests extends BaseTest implements TestHelper {
     System.out.println(contact.toString());
     addPage.fieldContactFormAndSave(contact);
     ContactsPage contactsPage = new ContactsPage(getDriver());
-    Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.LASTNAME));
+    Assert.assertTrue(contactsPage.editContactField(contact, ContactFieldsType.LASTNAME));
   }
 
   @Test
@@ -280,7 +281,7 @@ public class PhoneBookTests extends BaseTest implements TestHelper {
     System.out.println(contact.toString());
     addPage.fieldContactFormAndSave(contact);
     ContactsPage contactsPage = new ContactsPage(getDriver());
-    Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.PHONE));
+    Assert.assertTrue(contactsPage.editContactField(contact, ContactFieldsType.PHONE));
   }
 
   @Test
@@ -300,7 +301,7 @@ public class PhoneBookTests extends BaseTest implements TestHelper {
     System.out.println(contact.toString());
     addPage.fieldContactFormAndSave(contact);
     ContactsPage contactsPage = new ContactsPage(getDriver());
-    Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.EMAIL));
+    Assert.assertTrue(contactsPage.editContactField(contact, ContactFieldsType.EMAIL));
   }
 
   @Test
@@ -320,7 +321,7 @@ public class PhoneBookTests extends BaseTest implements TestHelper {
     System.out.println(contact.toString());
     addPage.fieldContactFormAndSave(contact);
     ContactsPage contactsPage = new ContactsPage(getDriver());
-    Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.ADDRESS));
+    Assert.assertTrue(contactsPage.editContactField(contact, ContactFieldsType.ADDRESS));
   }
 
   /*@Test
@@ -340,7 +341,7 @@ public class PhoneBookTests extends BaseTest implements TestHelper {
     System.out.println(contact.toString());
     addPage.fieldContactFormAndSave(contact);
     ContactsPage contactsPage = new ContactsPage(getDriver());
-    Assert.assertTrue(contactsPage.editContactField(contact, ContactsPage.FieldType.DESCRIPTION));
+    Assert.assertTrue(contactsPage.editContactField(contact, ContactFieldsType.DESCRIPTION));
   }*/
 
 }
