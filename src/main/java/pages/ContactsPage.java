@@ -110,7 +110,6 @@ public class ContactsPage extends BasePage{
   }
 
   private boolean updateField(WebElement fieldElement, String newValue) {
-    String oldValue = fieldElement.getAttribute("value");
     fieldElement.clear();
     fieldElement.sendKeys(newValue);
     saveButton.click();
