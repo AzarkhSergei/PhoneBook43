@@ -83,7 +83,8 @@ public class ContactsPage extends BasePage{
   }
 
   public boolean editContactField(Contact contact, ContactFieldsType contactFieldsType){
-    if(getDataFromContactList(contact)){
+    if(findContact(contact)){
+      editButton.click();
       switch (contactFieldsType) {
         case NAME:
           return updateField(nameField, NameAndLastNameGenerator.generateName());
@@ -102,15 +103,33 @@ public class ContactsPage extends BasePage{
     return false;
   }
 
+  private boolean findContact(Contact contact) {
+    try {
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+      WebElement contactFromTheList = wait.until(ExpectedConditions.visibilityOfElementLocated(
+          By.xpath("//div[h2[contains(text(),'"+contact.getName()+"')] " +
+              "and h3[contains(text(), '"+ contact.getPhone() +"')]]")));
+      contactFromTheList.click();
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
+  }
+
+
   private boolean updateField(WebElement fieldElement, String newValue) {
     fieldElement.clear();
     fieldElement.sendKeys(newValue);
     saveButton.click();
-    try {
+/*    try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
-    }
+    }*/
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    WebElement contactFromTheList = wait.until(ExpectedConditions.visibilityOfElementLocated(
+        By.xpath("//div[text()='"+newValue+"'] | " +
+            "//h2[text()='"+newValue+"'] | //h3[text()='"+newValue+"']")));
     editButton.click();
     return fieldElement.getAttribute("value").equals(newValue);
   }

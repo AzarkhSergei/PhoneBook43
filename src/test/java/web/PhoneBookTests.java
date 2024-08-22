@@ -11,6 +11,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 
+import java.io.IOException;
+
 
 public class PhoneBookTests extends BaseTest implements TestHelper {
 
@@ -343,5 +345,27 @@ public class PhoneBookTests extends BaseTest implements TestHelper {
     ContactsPage contactsPage = new ContactsPage(getDriver());
     Assert.assertTrue(contactsPage.editContactField(contact, ContactFieldsType.DESCRIPTION));
   }*/
+
+  @Test
+  public void createAndDeleteContactUsingSerialization() throws IOException, ClassNotFoundException {
+    MainPage mainPage = new MainPage(getDriver());
+    LoginPage loginPage = BasePage.openTopMenuItem(TopMenuItem.LOGIN);
+    loginPage.fillEmailField(PropertiesReaderXML.getProperties(CORRECT_EMAIL, XML_DATA_FILE))
+        .fillPasswordField(PropertiesReaderXML.getProperties(CORRECT_PASSWORD,XML_DATA_FILE))
+        .clickByLoginButton();
+    AddPage addPage = BasePage.openTopMenuItem(TopMenuItem.ADD);
+    Contact contact = new Contact(NameAndLastNameGenerator.generateName(),
+        NameAndLastNameGenerator.generateLastName(),
+        PhoneNumberGenerator.generatePhoneNumber(),
+        RANDOM_EMAIL,
+        AddressGenerator.generateAddress(),
+        "Test description");
+    System.out.println(contact.toString());
+    addPage.fieldContactFormAndSave(contact);
+    Contact.serializationContact(contact, "initContact.dat");
+    Contact deserializedContact = Contact.deserializationContact("initContact.dat");
+    //TASK delete contact
+
+  }
 
 }
