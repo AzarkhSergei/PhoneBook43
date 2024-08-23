@@ -365,7 +365,13 @@ public class PhoneBookTests extends BaseTest implements TestHelper {
     Contact.serializationContact(contact, "initContact.dat");
     Contact deserializedContact = Contact.deserializationContact("initContact.dat");
     //TASK delete contact
-
+    ContactsPage contactsPage = new ContactsPage(getDriver());
+    contactsPage.findContact(deserializedContact);
+    System.out.println("DE: " + deserializedContact.toString());
+    System.out.println("Found");
+    contactsPage.clickByRemoveButton(deserializedContact);
+    System.out.println("Deleted");
+    Assert.assertFalse(contactsPage.findContact(deserializedContact));
   }
 
 }

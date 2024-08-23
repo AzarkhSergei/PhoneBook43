@@ -7,6 +7,7 @@ import helpers.NameAndLastNameGenerator;
 import helpers.PhoneNumberGenerator;
 import models.Contact;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,21 +21,14 @@ import java.util.List;
 
 public class ContactsPage extends BasePage{
 
-  public enum FieldType{
-    NAME,
-    LASTNAME,
-    PHONE,
-    EMAIL,
-    ADDRESS,
-    DESCRIPTION
-  }
-
   @FindBy(xpath = "//button[contains(text(),'Sign')]")
   private WebElement signButton;
   @FindBy(xpath = "//button[contains(text(),'Save')]")
   private WebElement saveButton;
   @FindBy(xpath = "//button[contains(text(),'Edit')]")
   private WebElement editButton;
+  @FindBy(xpath = "//button[contains(text(),'Remove')]")
+  private WebElement removeButton;
   @FindBy(xpath = "//input[@placeholder='Name']")
   private WebElement nameField;
   @FindBy(xpath = "//input[@placeholder='Last Name']")
@@ -77,8 +71,7 @@ public class ContactsPage extends BasePage{
         phoneField.getAttribute("value"),
         emailField.getAttribute("value"),
         addressField.getAttribute("value"),
-        descriptionField.getAttribute("value")
-    );
+        descriptionField.getAttribute("value"));
     return testContact.equals(contact);
   }
 
@@ -103,35 +96,42 @@ public class ContactsPage extends BasePage{
     return false;
   }
 
-  private boolean findContact(Contact contact) {
+  public boolean findContact(Contact contact) {
     try {
-      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
       WebElement contactFromTheList = wait.until(ExpectedConditions.visibilityOfElementLocated(
           By.xpath("//div[h2[contains(text(),'"+contact.getName()+"')] " +
               "and h3[contains(text(), '"+ contact.getPhone() +"')]]")));
       contactFromTheList.click();
       return true;
-    } catch (IllegalArgumentException e) {
+    } catch (TimeoutException e) {
       return false;
     }
   }
 
 
-  private boolean updateField(WebElement fieldElement, String newValue) {
+  public boolean updateField(WebElement fieldElement, String newValue) {
     fieldElement.clear();
     fieldElement.sendKeys(newValue);
+    clickBySaveButton(newValue);
+    editButton.click();
+    return fieldElement.getAttribute("value").equals(newValue);
+  }
+
+  public void clickBySaveButton(String newValue){
     saveButton.click();
-/*    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }*/
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     WebElement contactFromTheList = wait.until(ExpectedConditions.visibilityOfElementLocated(
         By.xpath("//div[text()='"+newValue+"'] | " +
             "//h2[text()='"+newValue+"'] | //h3[text()='"+newValue+"']")));
-    editButton.click();
-    return fieldElement.getAttribute("value").equals(newValue);
+  }
+
+  public void clickByRemoveButton(Contact contact){
+    removeButton.click();
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    wait.until(ExpectedConditions.invisibilityOfElementLocated(
+        By.xpath("//div[h2[contains(text(),'"+contact.getName()+"')] " +
+            "and h3[contains(text(), '"+ contact.getPhone() +"')]]")));
   }
 
 }
