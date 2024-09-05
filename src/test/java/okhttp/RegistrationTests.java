@@ -48,12 +48,15 @@ public class RegistrationTests implements TestHelper {
     System.out.println("Request model :" + requestModel.getUsername() +" "+ requestModel.getPassword());
 
     RequestBody requestBody = RequestBody.create(GSON.toJson(requestModel), JSON);
-    Request request = new Request.Builder().url(BASE_URL+ REGISTRATION_PATH).post(requestBody).build();
+    Request request = new Request.Builder()
+        .url(BASE_URL+ REGISTRATION_PATH)
+        .post(requestBody)
+        .build();
 
     Response response = CLIENT.newCall(request).execute();
     if(!response.isSuccessful()){
       ErrorModel errorModel = GSON.fromJson(response.body().string(), ErrorModel.class);
-      System.out.println("ErrorModel" +errorModel.toString());
+      System.out.println("ErrorModel --> " +errorModel.toString());
       Assert.assertEquals(response.code(), 400);
     }
   }
@@ -72,7 +75,7 @@ public class RegistrationTests implements TestHelper {
     Response response = CLIENT.newCall(request).execute();
     if(!response.isSuccessful()){
       ErrorModel errorModel = GSON.fromJson(response.body().string(), ErrorModel.class);
-      System.out.println("ErrorModel" +errorModel.toString());
+      System.out.println("ErrorModel --> " +errorModel.toString());
       Assert.assertEquals(response.code(), 409);
     }
   }

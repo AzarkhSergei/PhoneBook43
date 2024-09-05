@@ -66,4 +66,7 @@ public class ErrorModel {
         ", path='" + path + '\'' +
         '}';
   }
+
+  public ErrorModel() {
+  }
 }

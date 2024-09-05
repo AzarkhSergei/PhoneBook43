@@ -12,6 +12,7 @@ public interface TestHelper {
   public static final String CORRECT_EMAIL = "correctEmail";
   public static final String CORRECT_PASSWORD = "correctPassword";
   public static final String TOKEN = "token";
+  public static final String AUTHORIZATION_HEADER = "Authorization";
   public static final String PASSWORD_WITHOUT_SPECIAL_SYMBOL = PasswordGenerator.generatePassword(PasswordGenerator.PasswordType.PASSWORD_WITHOUT_SPECIAL_SYMBOL);
   public static final String PASSWORD_WITHOUT_DIGITS = PasswordGenerator.generatePassword(PasswordGenerator.PasswordType.PASSWORD_WITHOUT_DIGITS);
   public static final String PASSWORD_WITHOUT_UPPERCASE_LETTER = PasswordGenerator.generatePassword(PasswordGenerator.PasswordType.PASSWORD_WITHOUT_UPPERCASE_LETTER);
@@ -38,6 +39,9 @@ public interface TestHelper {
   public static final String LOGIN_PATH = "/v1/user/login/usernamepassword";
   public static final String REGISTRATION_PATH = "/v1/user/registration/usernamepassword";
   public static final String CONTACTS_PATH = "/v1/contacts";
+  public static final String UPDATE_CONTACT_PATH = "/v1/contacts";
   public static final String DELETE_ALL_CONTACTS_PATH = "/v1/contacts/clear";
+  public static final String ADD_CONTACT_PATH = "/v1/contacts";
+  public static final String DELETE_CONTACT_PATH = "/v1/contacts/";
 
 }

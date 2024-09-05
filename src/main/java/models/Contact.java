@@ -10,24 +10,24 @@ import java.util.Objects;
 
 public class Contact implements Serializable {
 
+  String id;
   String name;
   String lastName;
-  String phone;
   String email;
+  String phone;
   String address;
   String description;
 
-  @Override
-  public String toString() {
-    return "Contact{" +
-        "name='" + name + '\'' +
-        ", lastName='" + lastName + '\'' +
-        ", phone='" + phone + '\'' +
-        ", email='" + email + '\'' +
-        ", address='" + address + '\'' +
-        ", description='" + description + '\'' +
-        '}';
+  public Contact(String id, String name, String lastName,  String email, String phone, String address, String description) {
+    this.id = id;
+    this.name = name;
+    this.lastName = lastName;
+    this.phone = phone;
+    this.email = email;
+    this.address = address;
+    this.description = description;
   }
+
 
   @Override
   public boolean equals(Object o) {
@@ -45,13 +45,34 @@ public class Contact implements Serializable {
   public Contact() {
   }
 
-  public Contact(String name, String lastName, String phone, String email, String address, String description) {
+  public Contact(String name, String lastName, String email, String phone, String address, String description) {
     this.name = name;
     this.lastName = lastName;
     this.phone = phone;
     this.email = email;
     this.address = address;
     this.description = description;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  @Override
+  public String toString() {
+    return "Contact{" +
+        "id='" + id + '\'' +
+        ", name='" + name + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", email='" + email + '\'' +
+        ", phone='" + phone + '\'' +
+        ", address='" + address + '\'' +
+        ", description='" + description + '\'' +
+        '}';
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
 
