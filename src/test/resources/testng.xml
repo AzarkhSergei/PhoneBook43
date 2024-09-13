@@ -9,6 +9,12 @@
                     <include name="loginNegative"/>
                 </methods>
             </class>
+            <class name="restassured.RegistrationTest">
+                <methods>
+                    <include name="registrationPositive"/>
+                    <include name="registrationNegativeTests"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
