@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.1.dtd">
+<suite name="PhoneBookTests">
+    <test name="PhoneBookRestAssure">
+
+        <classes>
+            <class name="restassured.LoginTest">
+                <methods>
+                    <include name="loginPositive"/>
+                    <include name="loginNegative"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -1,5 +1,6 @@
 package restassured;
 
+import config.TestData;
 import helpers.PropertiesReaderXML;
 import helpers.PropertiesWriterXML;
 import interfaces.TestHelper;
@@ -15,7 +16,7 @@ public class LoginTest implements TestHelper {
 
 
   @Test
-  public void login() {
+  public void loginPositive() {
     AuthenticationRequestModel requestModel = AuthenticationRequestModel.builder()
         .username(PropertiesReaderXML.getProperties(CORRECT_EMAIL, XML_DATA_FILE))
         .password(PropertiesReaderXML.getProperties(CORRECT_PASSWORD, XML_DATA_FILE))
@@ -34,11 +35,11 @@ public class LoginTest implements TestHelper {
     propertiesWriterXML.setProperty("token", response.getToken(),false, XML_DATA_FILE);
   }
 
-  @Test
-  public void loginNegativeWithPasswordWithoutDigits() {
+  @Test(dataProvider = "loginData", dataProviderClass = TestData.class)
+  public void loginNegative(String username, String password, int statusCode) {
     AuthenticationRequestModel requestModel = AuthenticationRequestModel.builder()
-        .username(PropertiesReaderXML.getProperties(CORRECT_EMAIL, XML_DATA_FILE))
-        .password(PropertiesReaderXML.getProperties(PASSWORD_WITHOUT_DIGITS, XML_DATA_FILE))
+        .username(username)
+        .password(password)
         .build();
     ErrorModel response = given()
         .body(requestModel)
@@ -47,7 +48,7 @@ public class LoginTest implements TestHelper {
         .post(BASE_URL + LOGIN_PATH)
         .then()
         .log().all()
-        .statusCode(401)
+        .statusCode(statusCode)
         .extract()
         .as(ErrorModel.class);
     System.out.println(response.getMessage());
