@@ -13,7 +13,10 @@ public class ApiSteps implements TestHelper {
 
   @Step("Prepare authentication with user name {0}")
   public AuthenticationRequestModel preparedRequest(String username, String password){
-    return AuthenticationRequestModel.builder().username(username).password(password).build();
+    return AuthenticationRequestModel.builder()
+        .username(username)
+        .password(password)
+        .build();
   }
 
   @Step("Send login request to endpoint: {0}")
@@ -22,7 +25,7 @@ public class ApiSteps implements TestHelper {
         .body(requestModel)
         .contentType(ContentType.JSON)
         .when()
-        .put(endpoint)
+        .post(endpoint)
         .then()
         .log().all()
         .statusCode(200)
