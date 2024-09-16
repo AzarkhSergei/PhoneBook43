@@ -4,12 +4,18 @@ import helpers.AddressGenerator;
 import helpers.EmailGenerator;
 import helpers.NameAndLastNameGenerator;
 import helpers.PhoneNumberGenerator;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.io.*;
 import java.util.Objects;
 
-public class Contact implements Serializable {
+@Entity
+@Table(name = "contacts")
 
+public class Contact implements Serializable {
+  @Id
   String id;
   String name;
   String lastName;
